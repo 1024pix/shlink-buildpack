@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -eu
+
+SHLINK_VERSION=$(cat ./bin/version)
+SHLINK_DOWNLOADS="$1/downloads"
+SHLINK_ZIP="$SHLINK_DOWNLOADS/shlink.zip"
+SHLINK_URL="https://github.com/shlinkio/shlink/releases/download/v2.4.2/shlink_$(SHLINK_VERSION)_dist.zip"
+
+mkdir -p "$SHLINK_DOWNLOADS"
+
+echo -n "-----> Downloading Shlink distribution... from $SHLINK_URL to $SHLINK_ZIP... "
+curl -s --retry 3 -o "$SHLINK_ZIP" -L "$SHLINK_URL"
+echo "done"
+
+echo -n "-----> Extracting ZIP... "
+unzip -q "$SHLINK_ZIP" -d "$SHLINK_DOWNLOADS"
+mv "$SHLINK_DOWNLOADS/shlink"/* "$1"
+echo "done"
+
+echo -n "-----> Deleting downloads directory... "
+rm -rf "$SHLINK_DOWNLOADS"
+echo "done"
