@@ -5,7 +5,7 @@ set -eu
 SHLINK_VERSION=$(cat ./bin/version)
 SHLINK_DOWNLOADS="$1/downloads"
 SHLINK_ZIP="$SHLINK_DOWNLOADS/shlink.zip"
-SHLINK_URL="https://github.com/shlinkio/shlink/releases/download/v2.4.2/shlink_$(SHLINK_VERSION)_dist.zip"
+SHLINK_URL="https://github.com/shlinkio/shlink/releases/download/v$SHLINK_VERSION/shlink_""$SHLINK_VERSION""_dist.zip"
 
 mkdir -p "$SHLINK_DOWNLOADS"
 
@@ -15,7 +15,7 @@ echo "done"
 
 echo -n "-----> Extracting ZIP... "
 unzip -q "$SHLINK_ZIP" -d "$SHLINK_DOWNLOADS"
-mv "$SHLINK_DOWNLOADS/shlink"/* "$1"
+mv "$SHLINK_DOWNLOADS/shlink_""$SHLINK_VERSION""_dist"/* "$1"
 echo "done"
 
 echo -n "-----> Deleting downloads directory... "
